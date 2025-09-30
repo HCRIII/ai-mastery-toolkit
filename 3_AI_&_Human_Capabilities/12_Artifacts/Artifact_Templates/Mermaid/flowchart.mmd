@@ -1,0 +1,41 @@
+graph TD
+    A[Start: Customer Visit] --> B{What does customer want?}
+
+    B -->|Browse Products| C[Show Product Catalog]
+    B -->|Get Support| D[Connect to Support]
+    B -->|Make Purchase| E[Add Items to Cart]
+
+    C --> F{Found what you need?}
+    F -->|Yes| E
+    F -->|No| C
+    F -->|Need Help| D
+
+    D --> G[Support Options]
+    G -->|Chat| H[Live Chat Session]
+    G -->|Email| I[Send Email Inquiry]
+    G -->|Phone| J[Call Support Team]
+
+    H --> K[Issue Resolved?]
+    I --> K
+    J --> K
+
+    K -->|Yes| L[Close Ticket]
+    K -->|No| G
+
+    E --> M[Review Cart]
+    M --> N{Ready to Checkout?}
+
+    N -->|No| O[Continue Shopping]
+    O --> C
+    N -->|Yes| P[Enter Shipping Info]
+
+    P --> Q[Select Shipping Method]
+    Q --> R[Enter Payment Info]
+    R --> S{Payment Approved?}
+
+    S -->|No| T[Retry Payment]
+    T --> R
+    S -->|Yes| U[Order Confirmed]
+
+    L --> V[End: Customer Satisfied]
+    U --> V

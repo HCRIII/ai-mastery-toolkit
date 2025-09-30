@@ -1,0 +1,27 @@
+gantt
+    title Project Timeline - Website Redesign
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+
+    section Planning
+    Project Kickoff           :planning1, 2026-03-01, 2d
+    Requirements Gathering    :planning2, after planning1, 5d
+    Design Review            :planning3, after planning2, 3d
+
+    section Design
+    Wireframing              :design1, after planning3, 7d
+    Visual Design            :design2, after design1, 10d
+    Design Handoff           :design3, after design2, 2d
+
+    section Development
+    Frontend Setup           :dev1, after design3, 3d
+    Homepage Build           :dev2, after dev1, 8d
+    Product Pages            :dev3, after dev2, 10d
+    User Account System      :dev4, after dev3, 8d
+    Testing & Bug Fixes      :dev5, after dev4, 5d
+
+    section Deployment
+    Staging Review           :deploy1, after dev5, 3d
+    Performance Optimization :deploy2, after deploy1, 4d
+    Production Release       :deploy3, after deploy2, 2d
+    Post-Launch Support      :deploy4, after deploy3, 7d

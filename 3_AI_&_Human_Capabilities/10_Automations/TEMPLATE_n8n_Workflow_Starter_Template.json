@@ -1,0 +1,367 @@
+{
+  "name": "Alex Lead Processing Workflow - Starter Template",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "alex-leads",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "node_webhook_trigger",
+      "name": "Webhook: Lead Submission",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 100],
+      "webhookId": "YOUR_WEBHOOK_ID",
+      "active": true
+    },
+    {
+      "parameters": {
+        "functionCode": "// INTAKE BLOCK: Prepare lead payload\n// This function normalizes raw input data into a structured format\n// Input: Raw JSON from webhook (name, email, company, message)\n// Output: Standardized lead object with metadata\n\n// KEY CONFIGURATIONS:\n// - Replace these IDs with your actual workflow/execution IDs\n// - Adjust timestamp format if needed\n// - Add additional fields based on your form structure\n\nreturn [\n  {\n    json: {\n      // Unique identifiers for tracking this lead through the workflow\n      workflow_id: `lead-${Date.now()}`,\n      trace_id: `trace-${$execution.id}`,\n      created_at: new Date().toISOString(),\n\n      // Raw input normalized (trimmed, lowercased where appropriate)\n      input: {\n        name: ($json.name || '').trim(),\n        email: ($json.email || '').trim().toLowerCase(),\n        company: ($json.company || 'Unknown').trim(),\n        message: ($json.message || '').trim()\n      },\n\n      // Metadata about the incoming request\n      metadata: {\n        received_at: new Date().toISOString(),\n        source_platform: $json.source_platform || 'web_form',\n        user_agent: $json.user_agent || 'unknown',\n        request_id: $json.request_id || null\n      }\n    }\n  }\n];"
+      },
+      "id": "node_prepare_payload",
+      "name": "Function: Prepare Lead Payload",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "booleanProperties": {
+            "options": [
+              {
+                "name": "condition1",
+                "value": "hasValidEmail"
+              }
+            ]
+          },
+          "combinator": "and",
+          "options": [
+            {
+              "name": "condition1",
+              "type": "boolean",
+              "value": "{{ $json.input.email.includes('@') && $json.input.email.length > 5 }}"
+            }
+          ]
+        }
+      },
+      "id": "node_validate_fields",
+      "name": "Switch: Validate Required Fields",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [650, 100],
+      "onError": "addErrorMessage"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.company-insights.example.com/search",
+        "authentication": "predefined",
+        "nodeCredentialType": "httpBasicAuth",
+        "options": {},
+        "queryParameters": {
+          "q": "{{ $json.input.company }}",
+          "api_key": "{{ $secret.COMPANY_API_KEY }}"
+        }
+      },
+      "id": "node_enrich_company",
+      "name": "HTTP Request: Enrich Company Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [850, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "functionCode": "// DATA ENRICHMENT & NORMALIZATION\n// Merges enriched company data with normalized lead data\n// Input: Previous node outputs (prepared lead + enrichment API response)\n// Output: Complete normalized lead object ready for decision logic\n\nconst enrichmentData = JSON.parse($json.data || '{}');\nconst originalLead = $items(0).json;\n\nreturn [\n  {\n    json: {\n      ...originalLead,\n      normalized_data: {\n        name: originalLead.input.name,\n        email: originalLead.input.email,\n        company: originalLead.input.company,\n        company_size: enrichmentData.company_size || null,\n        industry: enrichmentData.industry || null,\n        message: originalLead.input.message,\n        message_length: originalLead.input.message.length,\n        ready_for_decision: true,\n        normalized_at: new Date().toISOString()\n      },\n      enrichment_source: 'company_insights_api'\n    }\n  }\n];"
+      },
+      "id": "node_normalize_data",
+      "name": "Function: Normalize with Enrichment",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "model": "gpt-4-turbo",
+        "systemPrompt": "You are a B2B lead classifier specializing in SaaS sales.\n\nClassify this lead's warmth using the following rubric:\n- Hot (8-10): Clear problem statement, urgency signals, strong ICP fit, specific use case\n- Warm (5-7): Interested, some alignment, demonstrates understanding, could use nurture\n- Cold (0-4): Generic inquiry, unclear fit, low engagement signals, just browsing\n\nReturn ONLY valid JSON (no markdown, no extra text):\n{\n  \"warmth\": \"Hot\" | \"Warm\" | \"Cold\",\n  \"confidence\": 0.0-1.0,\n  \"reasoning\": \"Brief explanation of classification\",\n  \"fit_score\": 0-10,\n  \"key_signals\": [\"signal1\", \"signal2\"]\n}",
+        "prompt": "Classify this lead:\n\nName: {{ $json.normalized_data.name }}\nCompany: {{ $json.normalized_data.company }}\nCompany Size: {{ $json.normalized_data.company_size }}\nIndustry: {{ $json.normalized_data.industry }}\nMessage: {{ $json.normalized_data.message }}\n\nProvide classification now.",
+        "responseFormat": "json"
+      },
+      "id": "node_classify_ai",
+      "name": "OpenAI: Classify Lead Warmth",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [1250, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "functionCode": "// PARSE AI CLASSIFICATION RESPONSE\n// Extracts JSON from AI response and validates structure\n// Input: OpenAI node output (raw text or JSON)\n// Output: Parsed classification with decision metadata\n\ntry {\n  const classification = JSON.parse($json.data);\n\n  return [\n    {\n      json: {\n        ...$items(0).json,\n        decision: {\n          warmth: classification.warmth || 'Unknown',\n          confidence: classification.confidence || 0,\n          fit_score: classification.fit_score || 0,\n          reasoning: classification.reasoning || '',\n          key_signals: classification.key_signals || [],\n          made_at: new Date().toISOString(),\n          model: 'gpt-4-turbo'\n        }\n      }\n    }\n  ];\n} catch (error) {\n  return [\n    {\n      json: {\n        ...$items(0).json,\n        decision: {\n          warmth: 'Unknown',\n          confidence: 0,\n          fit_score: 0,\n          reasoning: `Error parsing AI response: ${error.message}`,\n          needs_manual_review: true,\n          error_at: new Date().toISOString()\n        }\n      }\n    }\n  ];\n}"
+      },
+      "id": "node_parse_classification",
+      "name": "Function: Parse AI Classification",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1450, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "booleanProperties": {
+            "options": [
+              {
+                "name": "hot_enterprise",
+                "value": "isHotLargeCompany"
+              },
+              {
+                "name": "hot_mid_market",
+                "value": "isHotMidMarket"
+              },
+              {
+                "name": "warm_nurture",
+                "value": "isWarm"
+              }
+            ]
+          },
+          "combinator": "or",
+          "options": [\n            {\n              \"name\": \"hot_enterprise\",\n              \"type\": \"boolean\",\n              \"value\": \"{{ ($json.decision.warmth === 'Hot') && ($json.normalized_data.company_size > 500) }}\"\n            },\n            {\n              \"name\": \"hot_mid_market\",\n              \"type\": \"boolean\",\n              \"value\": \"{{ ($json.decision.warmth === 'Hot') && ($json.normalized_data.company_size <= 500) }}\"\n            },\n            {\n              \"name\": \"warm_nurture\",\n              \"type\": \"boolean\",\n              \"value\": \"{{ $json.decision.warmth === 'Warm' }}\"\n            }\n          ]\n        }\n      },
+      "id": "node_route_decision",
+      "name": "Switch: Route Based on Classification",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [1650, 100],
+      "onError": "addErrorMessage"
+    },
+    {
+      "parameters": {\n        \"model\": \"gpt-4-turbo\",\n        \"systemPrompt\": \"You are an expert B2B sales email writer. Draft personalized, concise first-touch emails that create genuine connection without hype. Use the prospect's language and reference specific pain points. Keep to 4-5 sentences.\",\n        \"prompt\": \"Draft a personalized first-touch email for:\\nName: {{ $json.normalized_data.name }}\\nCompany: {{ $json.normalized_data.company }}\\nTheir message: {{ $json.normalized_data.message }}\\nWarmth: {{ $json.decision.warmth }}\\n\\nReturn as JSON with 'subject' and 'body' fields.\",\n        \"responseFormat\": \"json\"\n      },\n      \"id\": \"node_generate_email\",\n      \"name\": \"OpenAI: Generate Email Draft\",\n      \"type\": \"n8n-nodes-base.openAi\",\n      \"typeVersion\": 1,\n      \"position\": [1850, 100],\n      \"credentials\": {}\n    },\n    {\n      \"parameters\": {\n        \"operation\": \"create\",\n        \"baseId\": \"{{ $secret.AIRTABLE_BASE_ID }}\",\n        \"table\": \"Leads\",\n        \"typeId\": \"rec123456789\",\n        \"fieldsUi\": {\n          \"fieldValues\": [\n            {\n              \"fieldId\": \"fld_name\",\n              \"fieldValue\": \"{{ $json.normalized_data.name }}\"\n            },\n            {\n              \"fieldId\": \"fld_email\",\n              \"fieldValue\": \"{{ $json.normalized_data.email }}\"\n            },\n            {\n              \"fieldId\": \"fld_company\",\n              \"fieldValue\": \"{{ $json.normalized_data.company }}\"\n            },\n            {\n              \"fieldId\": \"fld_warmth\",\n              \"fieldValue\": \"{{ $json.decision.warmth }}\"\n            },\n            {\n              \"fieldId\": \"fld_fit_score\",\n              \"fieldValue\": \"{{ $json.decision.fit_score }}\"\n            },\n            {\n              \"fieldId\": \"fld_workflow_id\",\n              \"fieldValue\": \"{{ $json.workflow_id }}\"\n            }\n          ]\n        }\n      },\n      \"id\": \"node_create_crm_record\",\n      \"name\": \"Airtable: Create Lead Record\",\n      \"type\": \"n8n-nodes-base.airtable\",\n      \"typeVersion\": 2,\n      \"position\": [2050, 50],\n      \"credentials\": {}\n    },\n    {\n      \"parameters\": {\n        \"operation\": \"sendEmail\",\n        \"toEmail\": \"{{ $json.normalized_data.email }}\",\n        \"subject\": \"{{ $json.email_draft.subject }}\",\n        \"body\": \"{{ $json.email_draft.body }}\"\n      },\n      \"id\": \"node_send_email\",\n      \"name\": \"Gmail: Send Response Email\",\n      \"type\": \"n8n-nodes-base.gmail\",\n      \"typeVersion\": 2,\n      \"position\": [2050, 150],\n      \"credentials\": {}\n    },\n    {\n      \"parameters\": {\n        \"channel\": \"#new-leads\",\n        \"message\": \"🔥 NEW {{ $json.decision.warmth }} LEAD\\n*{{ $json.normalized_data.name }}* | {{ $json.normalized_data.company }}\\nFit Score: {{ $json.decision.fit_score }}/10\\nConfidence: {{ ($json.decision.confidence * 100) | number:'2.0-0' }}%\\n👉 View: airtable.com/[insert link]\"\n      },\n      \"id\": \"node_slack_notification\",\n      \"name\": \"Slack: Post to #new-leads\",\n      \"type\": \"n8n-nodes-base.slack\",\n      \"typeVersion\": 2,\n      \"position\": [2050, 250],\n      \"credentials\": {}\n    },\n    {\n      \"parameters\": {\n        \"functionCode\": \"// FINAL LOGGING FOR ANALYTICS\n// Captures complete execution data for monitoring and analysis\n// Input: All previous node outputs\n// Output: Normalized log structure for analytics database\n\nreturn [\n  {\n    json: {\n      workflow_id: $json.workflow_id,\n      trace_id: $json.trace_id,\n      execution_id: $execution.id,\n      \n      // Original input\n      input: {\n        name: $json.normalized_data.name,\n        email: $json.normalized_data.email,\n        company: $json.normalized_data.company,\n        message_length: $json.normalized_data.message_length\n      },\n      \n      // Decisions made\n      decisions: {\n        warmth: $json.decision.warmth,\n        confidence: $json.decision.confidence,\n        fit_score: $json.decision.fit_score,\n        signals: $json.decision.key_signals\n      },\n      \n      // Actions completed\n      actions: {\n        crm_record_created: !!($json.airtable_id),\n        email_sent: !!($json.email_message_id),\n        slack_notified: !!($json.slack_ts)\n      },\n      \n      // Timing\n      started_at: $json.created_at,\n      completed_at: new Date().toISOString(),\n      duration_ms: new Date() - new Date($json.created_at),\n      \n      // Quality metrics\n      ai_confidence: $json.decision.confidence,\n      needs_review: $json.decision.confidence < 0.7,\n      status: 'completed'\n    }\n  }\n];\""
+      },
+      "id": "node_log_analytics",
+      "name": "Function: Log Full Execution",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2250, 100],
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "host": "{{ $secret.POSTGRES_HOST }}\",
+        "port": 5432,
+        "database": "{{ $secret.POSTGRES_DB }}\",
+        "user": "{{ $secret.POSTGRES_USER }}\",
+        "password": "{{ $secret.POSTGRES_PASSWORD }}\",
+        "ssl": "always",
+        "query": "INSERT INTO workflow_analytics (workflow_id, trace_id, input_data, decisions, actions, duration_ms, ai_confidence) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id;",
+        "queryParameters": [
+          "{{ $json.workflow_id }}\",
+          "{{ $json.trace_id }}\",
+          "{{ JSON.stringify($json.input) }}\",
+          "{{ JSON.stringify($json.decisions) }}\",
+          "{{ JSON.stringify($json.actions) }}\",
+          "{{ $json.duration_ms }}\",
+          "{{ $json.ai_confidence }}\""
+        ]
+      },
+      "id": "node_save_analytics",
+      "name": "PostgreSQL: Save Analytics",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2,
+      "position": [2400, 100],
+      "credentials": {}
+    }
+  ],
+  "connections": {
+    "node_webhook_trigger": {
+      "main": [
+        [
+          {
+            "node": "node_prepare_payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_prepare_payload": {
+      "main": [
+        [
+          {
+            "node": "node_validate_fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_validate_fields": {
+      "main": [
+        [
+          {
+            "node": "node_enrich_company",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "node_error_handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_enrich_company": {
+      "main": [
+        [
+          {
+            "node": "node_normalize_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_normalize_data": {
+      "main": [
+        [
+          {
+            "node": "node_classify_ai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_classify_ai": {
+      "main": [
+        [
+          {
+            "node": "node_parse_classification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_parse_classification": {
+      "main": [
+        [
+          {
+            "node": "node_route_decision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_route_decision": {
+      "main": [
+        [
+          {
+            "node": "node_generate_email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "node_generate_email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "node_generate_email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_generate_email": {
+      "main": [
+        [
+          {
+            "node": "node_create_crm_record",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "node_send_email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "node_slack_notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_create_crm_record": {
+      "main": [
+        [
+          {
+            "node": "node_log_analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_send_email": {
+      "main": [
+        [
+          {
+            "node": "node_log_analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_slack_notification": {
+      "main": [
+        [
+          {
+            "node": "node_log_analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "node_log_analytics": {
+      "main": [
+        [
+          {
+            "node": "node_save_analytics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataExecution": "all",
+    "saveManualExecutions": true,
+    "timezone": "UTC"
+  },
+  "staticData": null,
+  "pinData": {},
+  "versionId": "1",
+  "meta": {
+    "instanceId": "CONFIGURE_YOUR_INSTANCE_ID",
+    "created": "2026-02-08T00:00:00.000Z",
+    "updated": "2026-02-08T00:00:00.000Z"
+  }
+}

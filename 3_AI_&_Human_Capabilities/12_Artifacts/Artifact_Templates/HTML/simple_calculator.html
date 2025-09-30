@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #f8f9ff;
+        }
+
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .operation-buttons button {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .operation-buttons button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .result-area {
+            background-color: #f8f9ff;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            word-break: break-all;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-calculate {
+            background-color: #667eea;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+        }
+
+        .btn-calculate:hover {
+            background-color: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-clear {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+        }
+
+        .btn-clear:hover {
+            background-color: #ee5a52;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .info-text {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+
+        <div class="input-group">
+            <label for="num1">First Number</label>
+            <input type="number" id="num1" placeholder="Enter first number" step="0.01">
+        </div>
+
+        <div class="input-group">
+            <label for="num2">Second Number</label>
+            <input type="number" id="num2" placeholder="Enter second number" step="0.01">
+        </div>
+
+        <label>Operation</label>
+        <div class="operation-buttons">
+            <button onclick="setOperation('+')">+</button>
+            <button onclick="setOperation('-')">−</button>
+            <button onclick="setOperation('*')">×</button>
+            <button onclick="setOperation('/'">÷</button>
+        </div>
+
+        <div class="result-area">
+            <div>
+                <div class="result-label">Result</div>
+                <div class="result-value" id="result">—</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn-calculate" onclick="calculate()">Calculate</button>
+            <button class="btn-clear" onclick="clearAll()">Clear</button>
+        </div>
+
+        <div class="info-text">
+            Select operation and click Calculate
+        </div>
+    </div>
+
+    <script>
+        let selectedOperation = '+';
+
+        function setOperation(op) {
+            selectedOperation = op;
+            // Visual feedback
+            document.querySelectorAll('.operation-buttons button').forEach(btn => {
+                btn.style.background = '#f0f0f0';
+            });
+            event.target.style.background = '#667eea';
+            event.target.style.color = 'white';
+        }
+
+        function calculate() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').textContent = 'Please enter valid numbers';
+                return;
+            }
+
+            let result;
+            switch(selectedOperation) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 === 0) {
+                        document.getElementById('result').textContent = 'Cannot divide by zero';
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    result = 0;
+            }
+
+            document.getElementById('result').textContent = result.toFixed(2);
+        }
+
+        function clearAll() {
+            document.getElementById('num1').value = '';
+            document.getElementById('num2').value = '';
+            document.getElementById('result').textContent = '—';
+            selectedOperation = '+';
+            document.querySelectorAll('.operation-buttons button').forEach(btn => {
+                btn.style.background = '#f0f0f0';
+                btn.style.color = '#333';
+            });
+        }
+
+        // Allow Enter key to calculate
+        document.getElementById('num2').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculate();
+        });
+    </script>
+</body>
+</html>
