@@ -10,3 +10,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-10-14
 [CONTENT] FOSG methodology groundwork — AI fluency framework research
+
+## 2025-11-10
+[RESEARCH] First behavioral observation notes — practitioner psychology baseline
