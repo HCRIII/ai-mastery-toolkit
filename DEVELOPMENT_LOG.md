@@ -13,3 +13,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-11-10
 [RESEARCH] First behavioral observation notes — practitioner psychology baseline
+
+## 2025-11-24
+[CONTENT] AI integration workshop preparation — FOSG methodology applied
