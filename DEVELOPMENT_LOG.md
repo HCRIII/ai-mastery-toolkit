@@ -16,3 +16,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-11-24
 [CONTENT] AI integration workshop preparation — FOSG methodology applied
+
+## 2025-12-03
+[ARCH] Knowledge infrastructure — Zotero/Obsidian integration
