@@ -19,3 +19,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-12-03
 [ARCH] Knowledge infrastructure — Zotero/Obsidian integration
+
+## 2025-12-12
+[CONTENT] Core methodology frameworks — pillar content architecture drafted
