@@ -22,3 +22,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-12-12
 [CONTENT] Core methodology frameworks — pillar content architecture drafted
+
+## 2025-12-27
+[ARCH] Toolkit v1 formation — first date-verified files, pillar framework
