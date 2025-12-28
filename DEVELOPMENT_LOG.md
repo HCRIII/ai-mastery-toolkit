@@ -25,3 +25,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2025-12-27
 [ARCH] Toolkit v1 formation — first date-verified files, pillar framework
+
+## 2025-12-28
+[CONTENT] Toolkit v1 expansion — framework files and context architecture
