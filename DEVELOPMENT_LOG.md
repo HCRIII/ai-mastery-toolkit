@@ -31,3 +31,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-01-18
 [CONTENT] Content layer build — how-to guides and prompting methodology
+
+## 2026-01-23
+[CONTENT] SuperContext v1-v5 (37 files) — pillar framework and context architecture
