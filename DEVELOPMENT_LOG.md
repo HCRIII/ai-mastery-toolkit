@@ -34,3 +34,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-01-23
 [CONTENT] SuperContext v1-v5 (37 files) — pillar framework and context architecture
+
+## 2026-01-25
+[CONTENT] Pillar framework refinement (34 files) — practice trackers and Level 0 map
