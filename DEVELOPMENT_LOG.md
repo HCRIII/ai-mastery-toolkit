@@ -37,3 +37,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-01-25
 [CONTENT] Pillar framework refinement (34 files) — practice trackers and Level 0 map
+
+## 2026-01-30
+[CONTENT] Toolkit v1 consolidation — foundation layer and incoming material
