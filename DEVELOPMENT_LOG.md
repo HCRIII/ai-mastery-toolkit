@@ -43,3 +43,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-03
 [RESEARCH] CDPID framework work begins — white paper, definitions, literature review
+
+## 2026-02-04
+[RESEARCH] CDPID five-phase model articulated — SSRN submission preparation
