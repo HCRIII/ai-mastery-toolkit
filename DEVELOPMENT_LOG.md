@@ -46,3 +46,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-04
 [RESEARCH] CDPID five-phase model articulated — SSRN submission preparation
+
+## 2026-02-05
+[RESEARCH] Behavioral taxonomy design — Human_Current_State dimension defined
