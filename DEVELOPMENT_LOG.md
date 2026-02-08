@@ -55,3 +55,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-07
 [RESEARCH] AI_Current_State taxonomy defined — three-taxonomy tracking protocol
+
+## 2026-02-08
+[RESEARCH] Dyadic_Current_State taxonomy — three-taxonomy behavioral tracking complete
