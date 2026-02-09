@@ -58,3 +58,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-08
 [RESEARCH] Dyadic_Current_State taxonomy — three-taxonomy behavioral tracking complete
+
+## 2026-02-09
+[RESEARCH] Behavioral snapshot #1 — baseline measurement, longitudinal dataset starts
