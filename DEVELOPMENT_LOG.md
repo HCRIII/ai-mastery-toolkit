@@ -67,3 +67,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-11
 [SYSTEM] Prompt library foundation — session-startup v1 and core system prompts
+
+## 2026-02-12
+[RESEARCH] CDPID white paper draft complete — framework narrative and academic citations
