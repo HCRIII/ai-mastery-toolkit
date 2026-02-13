@@ -70,3 +70,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-12
 [RESEARCH] CDPID white paper draft complete — framework narrative and academic citations
+
+## 2026-02-13
+[RESEARCH] Behavioral snapshot #2 — clarification reduction baseline confirmed
