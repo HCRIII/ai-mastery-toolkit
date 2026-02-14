@@ -73,3 +73,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-13
 [RESEARCH] Behavioral snapshot #2 — clarification reduction baseline confirmed
+
+## 2026-02-14
+[RESEARCH] CDPID published — DOI: 10.2139/ssrn.6278438 assigned (OSF, SSRN, ResearchGate)
