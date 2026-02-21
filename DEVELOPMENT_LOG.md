@@ -85,3 +85,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-20
 [RESEARCH] System Wisdom layer initialized — failure mode documentation protocol
+
+## 2026-02-21
+[RESEARCH] Behavioral snapshot #3 (7 files) — 34% clarification reduction trend
