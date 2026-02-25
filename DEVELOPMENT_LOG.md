@@ -94,3 +94,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-24
 [RESEARCH] CDPID practitioner positioning — 5-platform dissemination strategy
+
+## 2026-02-25
+[SYSTEM] Weekly review protocol — GTD integration and planning archive
