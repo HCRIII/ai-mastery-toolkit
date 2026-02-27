@@ -100,3 +100,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-26
 [CONTENT] SuperContext v6-v9 (32 files) — Level 2 strategy layer populated
+
+## 2026-02-27
+[RESEARCH] Behavioral snapshot #4 — AI failure mode self-catch rate improving
