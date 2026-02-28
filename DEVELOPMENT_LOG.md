@@ -103,3 +103,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-27
 [RESEARCH] Behavioral snapshot #4 — AI failure mode self-catch rate improving
+
+## 2026-02-28
+[ARCH] Toolkit v2 milestone — architecture decision records, v3 planning
