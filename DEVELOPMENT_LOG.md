@@ -106,3 +106,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-02-28
 [ARCH] Toolkit v2 milestone — architecture decision records, v3 planning
+
+## 2026-03-01
+[RESEARCH] System Wisdom accumulation (6 files) — dyadic efficiency gains validated
