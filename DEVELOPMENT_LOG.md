@@ -112,3 +112,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-02
 [CONTENT] Source audit protocol — external intelligence and reference library
+
+## 2026-03-05
+[RESEARCH] Behavioral snapshot #5 — 34% clarification reduction confirmed
