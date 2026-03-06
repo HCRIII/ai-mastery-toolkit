@@ -115,3 +115,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-05
 [RESEARCH] Behavioral snapshot #5 — 34% clarification reduction confirmed
+
+## 2026-03-06
+[RESEARCH] Failure mode patterns categorized — AI behavioral drift detection
