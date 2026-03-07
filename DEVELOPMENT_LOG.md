@@ -118,3 +118,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-06
 [RESEARCH] Failure mode patterns categorized — AI behavioral drift detection
+
+## 2026-03-07
+[SYSTEM] Weekly review cadence — GTD-AI integration protocol v2
