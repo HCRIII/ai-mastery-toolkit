@@ -142,3 +142,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-16
 [CONTENT] How-to guides v2 (32 files) — prompt library and workflow templates
+
+## 2026-03-17
+[RESEARCH] Behavioral snapshots #6-7 — dyadic trust patterns emerging
