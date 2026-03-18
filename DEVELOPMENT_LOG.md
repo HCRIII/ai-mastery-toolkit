@@ -145,3 +145,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-17
 [RESEARCH] Behavioral snapshots #6-7 — dyadic trust patterns emerging
+
+## 2026-03-18
+[RESEARCH] System Wisdom — edge cases and AI reasoning transparency protocol
