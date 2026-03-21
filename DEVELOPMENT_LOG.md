@@ -154,3 +154,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-20
 [CONTENT] Level 2 strategy maturation — OKR v2 and KR1 tracking
+
+## 2026-03-21
+[CONTENT] Program briefs T1 Foundation (11 files) — first program architecture
