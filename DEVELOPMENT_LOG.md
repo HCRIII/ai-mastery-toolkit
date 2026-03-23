@@ -160,3 +160,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-22
 [SYSTEM] Weekly review integration — content calendar and strategic layer v2
+
+## 2026-03-23
+[RESEARCH] Behavioral snapshot #8 — intent disambiguation improving
