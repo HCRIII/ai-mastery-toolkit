@@ -166,3 +166,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-24
 [RESEARCH] Dyadic efficiency metrics — compounding gains across 45 sessions
+
+## 2026-03-25
+[RESEARCH] System Wisdom milestone — 100+ behavioral observations captured
