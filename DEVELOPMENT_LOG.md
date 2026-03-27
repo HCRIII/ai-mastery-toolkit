@@ -172,3 +172,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-26
 [RESEARCH] Three-taxonomy comparison — Human/AI/Dyadic improvement divergence
+
+## 2026-03-27
+[ARCH] v3 architecture review — Level 2 strategy and T1 Foundation sequencing
