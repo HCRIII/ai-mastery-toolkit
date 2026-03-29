@@ -178,3 +178,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-28
 [CONTENT] FOSG business architecture — ascension model v2 documented
+
+## 2026-03-29
+[RESEARCH] Behavioral snapshots #9-10 — IP candidate patterns identified
