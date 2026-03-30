@@ -181,3 +181,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-03-29
 [RESEARCH] Behavioral snapshots #9-10 — IP candidate patterns identified
+
+## 2026-03-30
+[ARCH] v3 to v4 mass reorganization — 1,868 files, full taxonomy revision
