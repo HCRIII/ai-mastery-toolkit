@@ -193,3 +193,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-02
 [PGM] PGM-002 community development — session planning and facilitation guides
+
+## 2026-04-03
+[PGM] PGM-003 content production — channel strategy and asset pipeline
