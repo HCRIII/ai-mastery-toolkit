@@ -199,3 +199,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-04
 [PGM] PGM-004 curriculum architecture — four-domain competency framework
+
+## 2026-04-05
+[PGM] PGM-005 through PGM-007 briefs complete — weekly review GTD integration
