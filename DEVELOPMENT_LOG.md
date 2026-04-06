@@ -202,3 +202,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-05
 [PGM] PGM-005 through PGM-007 briefs complete — weekly review GTD integration
+
+## 2026-04-06
+[PGM] PGM-008 research identity — CDPID positioning and dissemination strategy
