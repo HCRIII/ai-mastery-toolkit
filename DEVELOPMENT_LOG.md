@@ -223,3 +223,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-13
 [ARCH] Context architecture review — Level 2 strategy matured, weekly cadence locked
+
+## 2026-04-19
+[RESEARCH] Behavioral snapshot #12 — 41% intent disambiguation improvement
