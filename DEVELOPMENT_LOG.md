@@ -226,3 +226,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-19
 [RESEARCH] Behavioral snapshot #12 — 41% intent disambiguation improvement
+
+## 2026-04-20
+[PGM] PGM-018 complete — all T1 Foundation programs documented and active
