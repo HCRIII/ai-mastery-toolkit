@@ -229,3 +229,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-20
 [PGM] PGM-018 complete — all T1 Foundation programs documented and active
+
+## 2026-04-21
+[RESEARCH] Snapshots #13-14 — developmental vs. operational AI fluency distinction
