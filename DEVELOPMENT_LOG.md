@@ -232,3 +232,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-21
 [RESEARCH] Snapshots #13-14 — developmental vs. operational AI fluency distinction
+
+## 2026-04-23
+[PGM-017] Anthropic Fellows application submitted — CDPID DOI: 10.2139/ssrn.6278438 cited
