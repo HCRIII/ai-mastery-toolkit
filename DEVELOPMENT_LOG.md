@@ -235,3 +235,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-23
 [PGM-017] Anthropic Fellows application submitted — CDPID DOI: 10.2139/ssrn.6278438 cited
+
+## 2026-04-24
+[PGM-017] CV v3 complete — full professional history with CDPID portfolio artifact
