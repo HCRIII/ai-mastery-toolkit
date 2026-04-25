@@ -238,3 +238,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-24
 [PGM-017] CV v3 complete — full professional history with CDPID portfolio artifact
+
+## 2026-04-25
+[PGM-017] Research funding identity — platform presence and academic credibility
