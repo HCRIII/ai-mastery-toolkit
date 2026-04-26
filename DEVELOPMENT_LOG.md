@@ -241,3 +241,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-04-25
 [PGM-017] Research funding identity — platform presence and academic credibility
+
+## 2026-04-26
+[RESEARCH] Snapshots #15-16 — 18% dyadic efficiency improvement in 8 weeks
