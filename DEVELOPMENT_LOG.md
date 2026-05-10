@@ -253,3 +253,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-05-07
 [PGM-019] Tier 5 position articulated — AI System Architect + Published Methodologist
+
+## 2026-05-10
+[PGM-019] Profile strategy — ZipRecruiter and Indeed documented, salary floor $65K
