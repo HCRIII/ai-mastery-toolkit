@@ -262,3 +262,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-05-24
 [PGM-019] Master CV v1 complete — intelligence publishing loop finalized
+
+## 2026-05-25
+[PGM-019] Evaluation spreadsheet operational — 8-dimension scoring rubric (13 files)
