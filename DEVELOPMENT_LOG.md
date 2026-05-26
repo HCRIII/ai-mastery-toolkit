@@ -265,3 +265,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-05-25
 [PGM-019] Evaluation spreadsheet operational — 8-dimension scoring rubric (13 files)
+
+## 2026-05-26
+[PGM-019] AI-enablement pipeline batch 1 (44 files) — ZipRecruiter profile updated
