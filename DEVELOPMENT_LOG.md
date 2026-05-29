@@ -274,3 +274,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-05-28
 [PGM-019] A-cluster confirmed (55 files) — application pipeline sequencing finalized
+
+## 2026-05-29
+[PGM-019] Intelligence inputs organized — external research layer structured
