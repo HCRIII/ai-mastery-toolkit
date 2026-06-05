@@ -283,3 +283,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-06-02
 [RESEARCH] Cluster confirmation — A-cluster signal strong, B-cluster tracking established
+
+## 2026-06-05
+[PGM-019] Application targeting refined — positioning narrative tightened
