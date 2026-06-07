@@ -286,3 +286,6 @@ v4 (Mar-Apr 2026), and v4.1 (Apr-Jun 2026).
 
 ## 2026-06-05
 [PGM-019] Application targeting refined — positioning narrative tightened
+
+## 2026-06-07
+[RESEARCH] Snapshot #19 — Context Architecture Framework IP candidate identified
